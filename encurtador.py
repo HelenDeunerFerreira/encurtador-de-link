@@ -26,7 +26,7 @@ class Encurtador:
             pickle.dump(arquivo, tf)
         arquivo.close()
 
-    def toBase(self, num, b=62):
+    def toBase(self, num, b=62):  # queria saber o que são essas letras
         if b <= 0 or b > 62:
             return 0
         base = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -39,7 +39,7 @@ class Encurtador:
             res = base[int(r)] + res
         return res
 
-    def to10(self, num, b=62):
+    def to10(self, num, b=62):  # não saquei o que seria o limite
         base = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
         limit = len(num)
         res = 0
@@ -49,15 +49,16 @@ class Encurtador:
 
     def encurtar(self, url):
         arquivo = open('urls.txt', 'w')
+        # não to entendendo onde ficam armazenadas essas variáveis pra gente colocar aqui
         arquivo.write(f'{self.indice}: ({url_curta}, {url_original})')
         arquivo.close()
         self.indice += 1
-        __save_dic()
+
+        __save_dic(arquivo)  # descobri que n consigo implementar esse método
         # salvar no dicionario usando como chave o valor da variavel self.indice >> pega o indice p salvar
         # o valor a ser salvo é uma tupla onde a posicao 0 eh o indice convertido para string usando base62 e a posicao 1 eh a url original
         # nao esqueca de incrementar a variavel self.indice >> ++1
         # e por fim, chamar o metodo __save_dic para salvar o dicionario no arquivo em disco.
-        pass
 
     def buscar(self, url_curta):
         indice = self.to10(url_curta)
