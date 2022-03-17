@@ -5,18 +5,26 @@ from math import floor
 class Encurtador:
     def __init__(self):
         self.dic = {}
-        self.nome_arq = "urls.dat"
+        self.nome_arq = 'urls.txt'
         self.__load_dic()
         self.indice = 1000 + len(self.dic)
 
     def __load_dic(self):
         # testar se arquivo existe
-        # carregar dicionario do arquivo .. variavel self.nome_arq >> fazer leitura
-        pass
+        if self.nome_arq == True:
+            # carregar dicionario do arquivo .. variavel self.nome_arq >> fazer leitura
+            arquivo = open('urls.txt', 'r')
+            print(arquivo.read())
+            return 'Arquivo existe'
+        else:
+            return 'Arquivo inexistente'
 
     def __save_dic(self):
         # salvar dicionario no arquivo .. variavel self.nome_arq
-        pass
+        arquivo = open('urls.txt', 'r')
+        with open("urls.pkl", "wb") as tf:
+            pickle.dump(arquivo, tf)
+        arquivo.close()
 
     def toBase(self, num, b=62):
         if b <= 0 or b > 62:
@@ -40,10 +48,16 @@ class Encurtador:
         return res
 
     def encurtar(self, url):
+        arquivo = open('urls.txt', 'w')
+        arquivo.write(f'{self.indice}: ({url_curta}, {url_original})')
+        arquivo.close()
+        self.indice += 1
+        __save_dic()
         # salvar no dicionario usando como chave o valor da variavel self.indice >> pega o indice p salvar
         # o valor a ser salvo é uma tupla onde a posicao 0 eh o indice convertido para string usando base62 e a posicao 1 eh a url original
         # nao esqueca de incrementar a variavel self.indice >> ++1
         # e por fim, chamar o metodo __save_dic para salvar o dicionario no arquivo em disco.
+        pass
 
     def buscar(self, url_curta):
         indice = self.to10(url_curta)
