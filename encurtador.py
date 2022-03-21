@@ -5,20 +5,20 @@ from math import floor
 class Encurtador:
     def __init__(self):
         self.dic = {}
-        self.nome_arq = 'urls.txt'
+        self.nome_arq = 'urls.dat'
         self.__load_dic()
         self.indice = 1000 + len(self.dic)
 
     def __load_dic(self):
         try:
-            arquivo = open('urls.txt', 'r')
+            arquivo = open('urls.dat', 'r')
             print(arquivo.read())
             arquivo.close()
         except:
             print('O arquivo não existe!')
 
     def __save_dic(self):
-        arquivo = open('urls.txt', 'wb')
+        arquivo = open('urls.dat', 'wb')
         pickle.dump(self.dic, arquivo)
         arquivo.close()
 
@@ -44,15 +44,18 @@ class Encurtador:
         return res
 
     def encurtar(self, url):
-        self.dic[self.indice] = f'({url}, url_curta)'
-        arquivo = open('urls.txt', 'wb')
+        url_curta = Encurtador().toBase(self.indice)
+
+        self.dic[self.indice] = (url, url_curta)
+        arquivo = open('urls.dat', 'wb')
         pickle.dump(self.dic, arquivo)
         arquivo.close()
         self.indice += 1
 
-        arquivo = open('urls.txt', 'rb')
+        arquivo = open('urls.dat', 'rb')
         self.dic = pickle.load(arquivo)
         arquivo.close()
+        print('Dicionário:')
         print(self.dic)
 
     def buscar(self, url_curta):
