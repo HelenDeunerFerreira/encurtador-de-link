@@ -52,12 +52,6 @@ class Encurtador:
         arquivo.close()
         self.indice += 1
 
-        arquivo = open('urls.dat', 'rb')
-        self.dic = pickle.load(arquivo)
-        arquivo.close()
-        print('Dicionário:')
-        print(self.dic)
-
     def buscar(self, url_curta):
         indice = self.to10(url_curta)
         return self.dic[indice][1]
@@ -68,9 +62,14 @@ class Encurtador:
 
 ## TESTES ##
 e = Encurtador()
+
 e.encurtar(
     "https://imed.edu.br/Ensino/ciencia-da-computacao/graduacao/sobre-a-profissao/")
+e.encurtar(
+    "https://www.linkedin.com/feed/")
 
+
+print('Dicionário:')
 e.listar_urls()
 
 print(e.buscar('g8'))
